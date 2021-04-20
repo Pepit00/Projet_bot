@@ -1,0 +1,19 @@
+{
+  "name": "projet_bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pepit00/Projet_bot.git"
+  },
+  "author": "oui",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Pepit00/Projet_bot/issues"
+  },
+  "homepage": "https://github.com/Pepit00/Projet_bot#readme"
+}
