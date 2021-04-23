@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Pepit00/Projet_bot/issues"
   },
-  "homepage": "https://github.com/Pepit00/Projet_bot#readme"
+  "homepage": "https://github.com/Pepit00/Projet_bot#readme",
+  "dependencies": {
+    "discord.js": "^12.5.3"
+  }
 }
