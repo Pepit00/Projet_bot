@@ -14,13 +14,13 @@ client.commands = new Discord.Collection();
 
 const commandFile = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
 
-for(const file of commandFile){
-    const command = require(`./commands/${file}`);
-    client.commands.set(command.name, command);
+for (const file of commandFile) {
+	const command = require(`./commands/${file}`);
+	client.commands.set(command.name, command);
 }
 
 client.once('ready', () => {
-    console.log('Pepibot2.0 est en ligne !!!');
+	console.log('Pepibot2.0 est en ligne !!!');
 });
 
 const applyText = (canvas, text) => {
@@ -40,7 +40,7 @@ const applyText = (canvas, text) => {
 };
 
 client.on('guildMemberAdd', async member => {
-    
+
 	const channel = member.guild.channels.cache.find(ch => ch.name === 'accueil');
 
 	if (!channel) return;
@@ -77,24 +77,64 @@ client.on('guildMemberAdd', async member => {
 	channel.send(`Bienvenue mon pote, ${member}!`, attachment);
 });
 
+/*
+client.on('message', message => {
+	if(!message.content.startsWith(prefix) || message.author.bot) return;
+
+	const args = message.content.slice(prefix.length).split(/ +/);
+	const command = args.shift().toLowerCase();
+
+	if(command ==='yo'){
+		client.commands.get('yo').execute(message,args);
+	}
+	if(command ==='regles'){
+		client.commands.get('regles').execute(message,args, Discord);
+	}
+	if(command ==='join'){
+		client.emit('guildMemberAdd',message.member);
+	}
+	if(command === 'play' || command === 'stop' || command === 'skip'){
+		client.commands.get('musique').execute(command,message, args, client, Discord);
+	}
+
+});*/
 
 client.on('message', message => {
-    if(!message.content.startsWith(prefix) || message.author.bot) return;
+	if (!message.content.startsWith(prefix) || message.author.bot) return;
+	const args = message.content.slice(prefix.length).split(/ +/);
+	const command = args.shift().toLowerCase();
 
-    const args = message.content.slice(prefix.length).split(/ +/);
-    const command = args.shift().toLowerCase();
-
-    if(command ==='yo'){
-        client.commands.get('yo').execute(message,args);
-    }
-    if(command ==='regles'){
-        client.commands.get('regles').execute(message,args, Discord);
-    }
-    if(command ==='join'){
-        client.emit('guildMemberAdd',message.member);
-    }
-
+	switch (command) {
+		case 'ban':
+			client.commands.get('ban').execute(message, args);
+			break;
+		case "commands":
+			client.commands.get('commands').execute(message, args, Discord);
+			break;
+		case "kick":
+			client.commands.get('kick').execute(message, args);
+			break;
+		case 'play':
+		case 'skip':
+		case 'stop':
+		case 'loop':
+			client.commands.get('musique').execute(command, message, args, client, Discord);
+			break;
+		case "mute":
+			client.commands.get('mute').execute(message, args);
+			break;
+		case 'regles':
+			client.commands.get('regles').execute(message, args, Discord);
+		case "demute":
+			client.commands.get('demute').execute(message, args);
+			break;
+		case 'yo':
+			client.commands.get('yo').execute(message, args);
+			break;
+		default:
+			return message.channel.send('déso j\' ai pas compris.....');
+	}
 });
 
 
-client.login('TOKEN HERE');
+client.login('ODM0MDQ3MTI4MzE3MzI5NDE4.YH7M6w.IaQp36QJLR8agRysIMF_YgFYcxk');

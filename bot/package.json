@@ -17,6 +17,9 @@
   },
   "homepage": "https://github.com/Pepit00/Projet_bot#readme",
   "dependencies": {
-    "discord.js": "^12.5.3"
+    "better-sqlite3": "^7.3.1",
+    "canvas": "^2.7.0",
+    "discord.js": "^12.5.3",
+    "ytdl-core": "^4.7.0"
   }
 }
