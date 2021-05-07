@@ -137,4 +137,4 @@ client.on('message', message => {
 });
 
 
-client.login('ODM0MDQ3MTI4MzE3MzI5NDE4.YH7M6w.IaQp36QJLR8agRysIMF_YgFYcxk');
+client.login('TOKEN HERE');
