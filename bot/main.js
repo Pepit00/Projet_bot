@@ -131,10 +131,13 @@ client.on('message', message => {
 		case 'yo':
 			client.commands.get('yo').execute(message, args);
 			break;
+		case 'getmcc':
+			client.commands.get('getMCC').execute(message, args);
+			break;
 		default:
 			return message.channel.send('déso j\' ai pas compris.....');
 	}
 });
 
 
-client.login('TOKEN HERE');
+client.login('TOKEN');
