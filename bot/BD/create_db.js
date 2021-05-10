@@ -8,7 +8,7 @@ let db = new Sqlite('db.sqlite');
 db.prepare('DROP TABLE IF EXISTS Bibliographie').run();
 db.prepare('DROP TABLE IF EXISTS MCC').run();
 
-db.prepare('CREATE TABLE Bibliographie (idGuild TEXT , nom TEXT, UE TEXT, lien TEXT, PRIMARY KEY (idGuild, nom))').run();
+db.prepare('CREATE TABLE Bibliographie (idGuild TEXT , nom TEXT, UE TEXT, lien TEXT, PRIMARY KEY (idGuild, nom, UE))').run();
 
 db.prepare('CREATE TABLE MCC (idGuild TEXT, UE TEXT, notation TEXT, PRIMARY KEY(idGuild, UE))').run();
 

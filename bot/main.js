@@ -134,10 +134,28 @@ client.on('message', message => {
 		case 'getmcc':
 			client.commands.get('getMCC').execute(message, args);
 			break;
+		case 'addmcc':
+			client.commands.get('addMCC').execute(message, args);
+			break;
+		case 'deletemcc':
+			client.commands.get('deleteMCC').execute(message, args);
+			break;
+		case 'getbibliographie':
+			client.commands.get('getBibliographie').execute(message, args);
+			break;
+		case 'addbibliographie':
+			client.commands.get('addBibliographie').execute(message, args);
+			break;
+		case 'deletebibliographie':
+			client.commands.get('deleteBibliographie').execute(message, args);
+			break;
+		case 'deleteuebibliographie':
+			client.commands.get('deleteUEBibliographie').execute(message, args);
+			break;
 		default:
 			return message.channel.send('déso j\' ai pas compris.....');
 	}
 });
 
 
-client.login('TOKEN');
+client.login('ODM0MDQ3MTI4MzE3MzI5NDE4.YH7M6w.IaQp36QJLR8agRysIMF_YgFYcxk');
