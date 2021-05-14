@@ -77,27 +77,6 @@ client.on('guildMemberAdd', async member => {
 	channel.send(`Bienvenue mon pote, ${member}!`, attachment);
 });
 
-/*
-client.on('message', message => {
-	if(!message.content.startsWith(prefix) || message.author.bot) return;
-
-	const args = message.content.slice(prefix.length).split(/ +/);
-	const command = args.shift().toLowerCase();
-
-	if(command ==='yo'){
-		client.commands.get('yo').execute(message,args);
-	}
-	if(command ==='regles'){
-		client.commands.get('regles').execute(message,args, Discord);
-	}
-	if(command ==='join'){
-		client.emit('guildMemberAdd',message.member);
-	}
-	if(command === 'play' || command === 'stop' || command === 'skip'){
-		client.commands.get('musique').execute(command,message, args, client, Discord);
-	}
-
-});*/
 
 client.on('message', message => {
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
@@ -152,10 +131,22 @@ client.on('message', message => {
 		case 'deleteuebibliographie':
 			client.commands.get('deleteUEBibliographie').execute(message, args);
 			break;
+		case 'join':
+			client.emit('guildMemberAdd', message.member);
+			break;
+		case 'setup':
+			client.commands.get('setup').execute(message, args);
+			break;
+		case "classalert":
+			client.commands.get('classAlert').execute(message, args);
+			break;
+		case "alarm":
+			client.commands.get('alarm').execute(message, args);
+			break;
 		default:
 			return message.channel.send('déso j\' ai pas compris.....');
 	}
 });
 
 
-client.login('TOKEN HERE');
+client.login('ODM0MDQ3MTI4MzE3MzI5NDE4.YH7M6w.IaQp36QJLR8agRysIMF_YgFYcxk');
