@@ -152,7 +152,7 @@ client.on('message', message => {
 			client.commands.get('presence').execute(message, args);
 			break;
 		default:
-			return message.channel.send('déso j\' ai pas compris.....');
+			return message.channel.send('commmande non reconnue, !commands pour la liste des commandes disponibles');
 	}
 });
 
