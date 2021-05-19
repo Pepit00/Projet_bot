@@ -1,8 +1,8 @@
 const Discord = require('discord.js');
-const Canvas = require('canvas');
+//const Canvas = require('canvas');
 
 
-const client = new Discord.Client();
+const client = new Discord.Client({ partials: ["MESSAGE", "CHANNEL", "REACTION" ]});
 
 
 
@@ -22,7 +22,7 @@ for (const file of commandFile) {
 client.once('ready', () => {
 	console.log('Pepibot2.0 est en ligne !!!');
 });
-
+/*
 const applyText = (canvas, text) => {
 	const ctx = canvas.getContext('2d');
 
@@ -76,7 +76,7 @@ client.on('guildMemberAdd', async member => {
 
 	channel.send(`Bienvenue mon pote, ${member}!`, attachment);
 });
-
+*/
 
 client.on('message', message => {
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
@@ -107,9 +107,9 @@ client.on('message', message => {
 		case "demute":
 			client.commands.get('demute').execute(message, args);
 			break;
-		case 'yo':
-			client.commands.get('yo').execute(message, args);
-			break;
+	//	case 'yo':
+	//		client.commands.get('yo').execute(message, args);
+	//		break;
 		case 'getmcc':
 			client.commands.get('getMCC').execute(message, args);
 			break;
@@ -142,6 +142,14 @@ client.on('message', message => {
 			break;
 		case "alarm":
 			client.commands.get('alarm').execute(message, args);
+			break;
+		case "reactionrole" :
+				client.commands.get('reactionRole').execute(message, args, Discord, client);
+			break;
+		case "presentlist":
+		case "present" :
+		case "closelist" :
+			client.commands.get('presence').execute(message, args);
 			break;
 		default:
 			return message.channel.send('déso j\' ai pas compris.....');
