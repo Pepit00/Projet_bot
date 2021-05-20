@@ -25,11 +25,11 @@ exports.createMCC = (idGuild, UE, notation) => {
 }
 
 exports.updateMCC = (idGuild, UE, notation) => {
-	db.prepare('UPDATE MCC SET notation = ? WHERE idGuild = ? AND UE = ?').run(MCC, idGuild, UE);
+	db.prepare('UPDATE MCC SET notation = ? WHERE idGuild = ? AND UE = ?').run(notation, idGuild, UE);
 }
 
-exports.updateBibliographie = (idGuild, nom, lien) => {
-	db.prepare('UPDATE bibliographie SET lien = ? WHERE idGuild = ? AND nom = ?').run(lien, idGuild, nom);
+exports.updateBibliographie = (idGuild, UE, nom, lien) => {
+	db.prepare('UPDATE bibliographie SET lien = ? WHERE idGuild = ? AND UE = ? AND nom = ?').run(lien, idGuild, UE, nom);
 }
 
 exports.deleteMCC = (idGuild, UE) => {

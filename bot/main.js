@@ -119,6 +119,9 @@ client.on('message', message => {
 		case 'deletemcc':
 			client.commands.get('deleteMCC').execute(message, args);
 			break;
+		case 'updatemcc':
+			client.commands.get('updateMCC').execute(message, args);
+			break;
 		case 'getbibliographie':
 			client.commands.get('getBibliographie').execute(message, args);
 			break;
@@ -130,6 +133,9 @@ client.on('message', message => {
 			break;
 		case 'deleteuebibliographie':
 			client.commands.get('deleteUEBibliographie').execute(message, args);
+			break;
+		case 'updatebibliographie':
+			client.commands.get('updateBibliographie').execute(message, args);
 			break;
 		case 'join':
 			client.emit('guildMemberAdd', message.member);
