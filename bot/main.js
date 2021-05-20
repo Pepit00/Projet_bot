@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const Canvas = require('canvas');
 
 
-const client = new Discord.Client();
+const client = new Discord.Client({ partials: ["MESSAGE", "CHANNEL", "REACTION"] });
 
 
 
@@ -20,7 +20,7 @@ for (const file of commandFile) {
 }
 
 client.once('ready', () => {
-	console.log('Pepibot2.0 est en ligne !!!');
+	console.log('Open Bot Room est en ligne !!!');
 });
 
 const applyText = (canvas, text) => {
@@ -142,6 +142,20 @@ client.on('message', message => {
 			break;
 		case "alarm":
 			client.commands.get('alarm').execute(message, args);
+			break;
+		case "addgroup":
+			client.commands.get('addgroup').execute(message, args);
+			break;
+		case "reactionrole":
+			client.commands.get('reactionRole').execute(message, args, Discord, client);
+			break;
+		case "presentlist":
+		case "present":
+		case "closelist":
+			client.commands.get('presence').execute(message, args);
+			break;
+		case "test":
+			client.commands.get('test').execute(message, args);
 			break;
 		default:
 			return message.channel.send('commmande non reconnue, !commands pour la liste des commandes disponibles');

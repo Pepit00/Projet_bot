@@ -2,10 +2,10 @@ module.exports = {
     name: 'setup',
     description: 'setup',
     execute(message, args) {
-        if (message.guild.roles.cache.some(role => role.name === 'enseignant')) return message.channel.send(`le setup du serveur a déja été fait`);
-        
+        if (message.guild.roles.cache.some(role => role.name === 'enseignant')) return message.channel.send(`Le serveur à déja été mis en place par Open_Bot_Room.`);
+
         if (!args.length) return message.channel.send('il manque des arguments!');
-        
+
         message.guild.channels.create(`salons utilitaires`, { type: 'category', });
         message.guild.channels.create(`salons textuels groupes`, { type: 'category', });
         message.guild.channels.create(`salons vocaux groupes`, { type: 'category', });
@@ -29,7 +29,7 @@ module.exports = {
 
         message.guild.roles.create({
             data: {
-                name: `puni`,
+                name: 'puni',
                 color: 'GRAY',
             },
         });
@@ -75,6 +75,10 @@ module.exports = {
         message.guild.channels.create(`commandes`, { type: 'text', }).then((channel) => {
             channel.setParent(message.guild.channels.cache.find(c => c.name === "Salons textuels" && c.type === "category").id)
         });
+        message.guild.channels.create(`enseignants`, { type: 'text', }).then((channel) => {
+            channel.setParent(message.guild.channels.cache.find(c => c.name === "Salons textuels" && c.type === "category").id)
+        });
+
 
         return message.channel.send(`setup du serveur terminé`);
 
