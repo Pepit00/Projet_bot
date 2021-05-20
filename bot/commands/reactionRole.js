@@ -5,6 +5,7 @@ module.exports = {
     async execute(message, args, Discord, client) {
        if (message.member.roles.cache.some(role => role.name === 'moderateur' || role.name === 'enseignant' )) {
             const channel = message.channel;
+
             const roleOne = message.guild.roles.cache.find(role => role.name === "groupe-1");
             const roleTwo = message.guild.roles.cache.find(role => role.name === "groupe-2");
             const roleThree = message.guild.roles.cache.find(role => role.name === "groupe-3");

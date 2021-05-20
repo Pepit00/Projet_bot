@@ -10,7 +10,7 @@ module.exports = {
                 presenceList = [];
                 return message.channel.send('Tapez !present pour émarger.');
             } else {
-                return message.channel.send('Seul un enseignant ou un modérateur peut utiliser cette commande.')
+                return message.channel.send('Seul un enseignant ou un modérateur peut utiliser cette commande.');
             }
         }
 
@@ -24,8 +24,13 @@ module.exports = {
         }
 
         if(command === '!closelist'){
-            return message.channel.send(presenceList);
-            presenceList =[];
+            if (message.member.roles.cache.some(role => role.name === 'moderateur' || role.name === 'enseignant')) {
+                return message.channel.send(presenceList);
+                presenceList = [];
+            }
+            else {
+                return message.channel.send('Seul un enseignant ou un modérateur peut utiliser cette commande.');
+            }
         }
 
     }
