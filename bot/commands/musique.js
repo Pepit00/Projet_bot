@@ -12,7 +12,7 @@ module.exports = {
     description: "commande musique",
     async execute(command, message, args, client, Discord) {
         const voice_channel = message.member.voice.channel;
-        if (!voice_channel) return message.channel.send('Il faut être sur un channel vocal pour executer cette commande.');
+        if (!voice_channel) return message.channel.send('Il faut être sur un salon vocal pour executer cette commande.');
         //const permissions = voice_channel.permissionsFor(message.client.user);
         const server_queue = queue.get(message.guild.id);
         if (command === 'play') {
@@ -85,13 +85,13 @@ const video_player = async (guild, song) => {
 }
 
 const skip_song = (message, server_queue) => {
-    if (!message.member.voice.channel) return message.channel.send('Il faut être sur un channel vocal pour executer cette commande.');
+    if (!message.member.voice.channel) return message.channel.send('Il faut être sur un salon vocal pour executer cette commande.');
     if (!server_queue) return message.channel.send("il n'y a pas de musique!");
     server_queue.connection.dispatcher.end();
 }
 
 const stop_song = (message, server_queue) => {
-    if (!message.member.voice.channel) return message.channel.send('Il faut être sur un channel vocal pour executer cette commande.');
+    if (!message.member.voice.channel) return message.channel.send('Il faut être sur un salon vocal pour executer cette commande.');
     if (!server_queue) return message.channel.send("il n'y a pas de musique!");
     server_queue.songs = [];
     server_queue.connection.dispatcher.end();
@@ -99,7 +99,7 @@ const stop_song = (message, server_queue) => {
 }
 
 const loop_song = (message, server_queue) => {
-    if (!message.member.voice.channel) return message.channel.send('Il faut être sur un channel vocal pour executer cette commande.');
+    if (!message.member.voice.channel) return message.channel.send('Il faut être sur un salon vocal pour executer cette commande.');
     if (!server_queue) return message.channel.send("il n'y a pas de musique!");
     if (!loop) {
         loop = true;

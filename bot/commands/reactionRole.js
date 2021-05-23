@@ -1,38 +1,67 @@
 module.exports = {
-    name: 'reactionrole',
-    description: "Sets up a reaction role message!",
+    name: 'reactionRole',
+    expectedArgs: '<Emoji> <Role tag, or ID>',
     requiredPermissions: ['ADMINISTRATOR'],
-    async execute(message, args, Discord, client) {
-       if (message.member.roles.cache.some(role => role.name === 'moderateur' || role.name === 'enseignant' )) {
-            const channel = message.channel;
+    async execute(command, message, args, Discord, client) {
+        if (message.member.roles.cache.some(role => role.name === 'moderateur' || role.name === 'enseignant')) {
+            const { guild } = message
+            const emojirole = new Map();
+            const targetChannel = message.channel
 
-            const roleOne = message.guild.roles.cache.find(role => role.name === "groupe-1");
-            const roleTwo = message.guild.roles.cache.find(role => role.name === "groupe-2");
-            const roleThree = message.guild.roles.cache.find(role => role.name === "groupe-3");
 
-            const roleOneEmoji = ':one:';
-            const roleTwoEmoji = ':two:';
-            const roleThreeEmoji = ':three:';
+            if (!guild.me.hasPermission('MANAGE_ROLES')) {
+                message.reply('The bot requires access to manage roles to work correctly')
+                return
+            }
+
+            console.log(args);
+            let emoji = args.shift();
+            let role = args.shift();
+            if (role === '' || role === undefined) {
+                return message.channel.send('Il manque au moins un argument, votre commande doit être de la forme `!addrole [message ID]');
+            }
+
+            console.log(emoji);
+            if (emoji.includes(':')) {
+                const emojiName = emoji.split(':')[1]
+
+                emoji = guild.emojis.cache.find((e) => {
+                    //      console.log('emoji name : ' + emojiName);
+                    return e.name === emojiName
+                })
+            }
+
+
+
+            if (role.startsWith('<@&')) {
+                role = role.substring(3, role.length - 1)
+                //console.log(role)
+            }
+
+            const newRole =
+                guild.roles.cache.find((r) => {
+                    return r.name === role || r.id === role
+                }) || null
+
+            if (!newRole) {
+                message.reply(`Could not find a role for "${role}"`)
+                return
+            }
+            role = newRole;
 
             let embed = new Discord.MessageEmbed()
                 .setColor('#0000FF')
-                .setTitle('Choisir son groupe')
-                .setDescription('Cliquez sur une réaction pour sélectionner votre groupe :\n\n'
-                    + `${roleOneEmoji} pour le groupe-1 \n`
-                    + `${roleTwoEmoji} pour le groupe-2 \n`
-                    + `${roleThreeEmoji} pour le groupe-3`);
+                //  .setTitle('Choisir son groupe')
+                .setTitle('Cliquez sur la réaction pour avoir le rôle ' + role.name)
+                .setDescription('Retirez votre réaction puis recliquez dessus pour retirer le rôle.');
 
             let messageEmbed = await message.channel.send(embed);
-            messageEmbed.react(roleOneEmoji);
-            messageEmbed.react(roleTwoEmoji);
-            messageEmbed.react(roleThreeEmoji);
+            messageEmbed.react(emoji);
 
-            if(guild.me.hasPermission('MANAGE_MESSAGES')){
-                message.delete()}
-            if(!guild.me.hasPermission('MANAGE_ROLES')){
-                message.reply("Le bot ne peut pas gérer les rôles.")
-                return
-            }
+
+            message.delete();
+            emojirole.set(emoji.id, role.id);
+            console.log(emojirole);
 
 
             client.on('messageReactionAdd', async (reaction, user) => {
@@ -40,50 +69,24 @@ module.exports = {
                 if (reaction.partial) await reaction.fetch();
                 if (user.bot) return;
                 if (!reaction.message.guild) return;
-
-                if (reaction.message.channel.id == channel) {
-                    if (reaction.emoji.name === roleOneEmoji) {
-                        await reaction.message.guild.members.cache.get(user.id).roles.add(roleOne);
+                if (reaction.message.channel.id == targetChannel) {
+                    let emoji = reaction.emoji.id;
+                    if (emojirole.has(emoji)) {
+                        let newRole = emojirole.get(emoji);
+                        if (message.member.roles.cache.some(r => r.id === newRole)) {
+                            await reaction.message.guild.members.cache.get(user.id).roles.remove(newRole);
+                        }
+                        else {
+                            await reaction.message.guild.members.cache.get(user.id).roles.add(newRole);
+                        }
+                    } else {
+                        return;
                     }
-                    if (reaction.emoji.name === roleTwoEmoji) {
-                        await reaction.message.guild.members.cache.get(user.id).roles.add(roleTwo);
-                    }
-                    if (reaction.emoji.name === roleThreeEmoji) {
-                        await reaction.message.guild.members.cache.get(user.id).roles.add(roleThree);
-                    }
-                } else {
-                    return;
                 }
+            })
 
-            });
-
-            client.on('messageReactionRemove', async (reaction, user) => {
-
-                if (reaction.message.partial) await reaction.message.fetch();
-                if (reaction.partial) await reaction.fetch();
-                if (user.bot) return;
-                if (!reaction.message.guild) return;
-
-
-                if (reaction.message.channel.id == channel) {
-                    if (reaction.emoji.name === roleOneEmoji) {
-                        await reaction.message.guild.members.cache.get(user.id).roles.remove(roleOne);
-                    }
-                    if (reaction.emoji.name === roleTwoEmoji) {
-                        await reaction.message.guild.members.cache.get(user.id).roles.remove(roleTwo);
-                    }
-                    if (reaction.emoji.name === roleThreeEmoji) {
-                        await reaction.message.guild.members.cache.get(user.id).roles.remove(roleThree);
-                    }
-
-                } else {
-                    return;
-                }
-            });
-        }
-        else {
-            message.channel.send("Vous n'avez pas la permission d'executer cette commande.");
+        } else {
+            message.channel.send('Vous n\'avez pas la permission d\'executer cette commande');
         }
     }
-
 }

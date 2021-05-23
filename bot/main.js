@@ -152,21 +152,17 @@ client.on('message', message => {
 		case "addgroup":
 			client.commands.get('addgroup').execute(message, args);
 			break;
-		case "reactionrole":
-			client.commands.get('reactionRole').execute(message, args, Discord, client);
+		case "addrole":
+			client.commands.get('reactionRole').execute(command, message, args, Discord, client);
 			break;
 		case "presentlist":
 		case "present":
 		case "closelist":
-			client.commands.get('presence').execute(message, args);
-			break;
-		case "test":
-			client.commands.get('test').execute(message, args);
+			client.commands.get('presence').execute(command, message);
 			break;
 		default:
 			return message.channel.send('commmande non reconnue, !commands pour la liste des commandes disponibles');
 	}
 });
-
 
 client.login('ODM0MDQ3MTI4MzE3MzI5NDE4.YH7M6w.IaQp36QJLR8agRysIMF_YgFYcxk');
