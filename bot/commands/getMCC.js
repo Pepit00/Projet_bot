@@ -6,7 +6,7 @@ module.exports={
     execute(message, args){
 	if(!args.length) return message.channel.send('il manque des arguments!');
 	let results = dbQuery.getMCC(message.guild.id, args[0]);
-	if (results == -1) message.channel.send('UE invalide ou notation non renseigner');
+	if (results == -1) message.channel.send('UE invalide ou notation non renseignée"');
 	else message.channel.send(args[0] + ' : ' + results.notation);
     }
 }

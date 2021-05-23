@@ -25,17 +25,10 @@ client.once('ready', () => {
 
 const applyText = (canvas, text) => {
 	const ctx = canvas.getContext('2d');
-
-	// Declare a base size of the font
 	let fontSize = 70;
-
 	do {
-		// Assign the font to the context and decrement it so it can be measured again
 		ctx.font = `${fontSize -= 10}px sans-serif`;
-		// Compare pixel width of the text to the canvas minus the approximate avatar size
 	} while (ctx.measureText(text).width > canvas.width - 300);
-
-	// Return the result to use in the actual canvas
 	return ctx.font;
 };
 
@@ -54,12 +47,12 @@ client.on('guildMemberAdd', async member => {
 	ctx.strokeStyle = '#74037b';
 	ctx.strokeRect(0, 0, canvas.width, canvas.height);
 
-	// Slightly smaller text placed above the member's display name
+
 	ctx.font = '35px sans-serif';
 	ctx.fillStyle = '#000000';
 	ctx.fillText('Bienvenue!', 500, 200);
 
-	// Add an exclamation point here and below
+
 	ctx.font = applyText(canvas, `${member.displayName}!`);
 	ctx.fillStyle = '#000000';
 	ctx.fillText(`${member.displayName}!`, 430, 500);
@@ -154,6 +147,9 @@ client.on('message', message => {
 			break;
 		case "addrole":
 			client.commands.get('reactionRole').execute(command, message, args, Discord, client);
+			break;
+		case "finpresentation":
+			client.commands.get('finpresentation').execute(message, args);
 			break;
 		case "presentlist":
 		case "present":
