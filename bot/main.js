@@ -95,13 +95,8 @@ client.on('message', message => {
 		case "mute":
 			client.commands.get('mute').execute(message, args);
 			break;
-		case 'regles':
-			client.commands.get('regles').execute(message, args, Discord);
 		case "demute":
 			client.commands.get('demute').execute(message, args);
-			break;
-		case 'yo':
-			client.commands.get('yo').execute(message, args);
 			break;
 		case 'getmcc':
 			client.commands.get('getMCC').execute(message, args);
@@ -129,9 +124,6 @@ client.on('message', message => {
 			break;
 		case 'updatebibliographie':
 			client.commands.get('updateBibliographie').execute(message, args);
-			break;
-		case 'join':
-			client.emit('guildMemberAdd', message.member);
 			break;
 		case 'setup':
 			client.commands.get('setup').execute(message, args);
