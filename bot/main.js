@@ -57,7 +57,7 @@ client.on('guildMemberAdd', async member => {
 	// Slightly smaller text placed above the member's display name
 	ctx.font = '35px sans-serif';
 	ctx.fillStyle = '#000000';
-	ctx.fillText('Bienvenue mon pote !', 400, 200);
+	ctx.fillText('Bienvenue!', 500, 200);
 
 	// Add an exclamation point here and below
 	ctx.font = applyText(canvas, `${member.displayName}!`);
@@ -74,7 +74,7 @@ client.on('guildMemberAdd', async member => {
 
 	const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'welcome-image.png');
 
-	channel.send(`Bienvenue mon pote, ${member}!`, attachment);
+	channel.send(`Bienvenue sur le serveur ${member}!`, attachment);
 });
 
 
