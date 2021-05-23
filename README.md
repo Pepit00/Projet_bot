@@ -20,4 +20,8 @@ Lors de l'ajout d'une fonctionalités vous devez ajouter un fichier .js dans le 
 veilez simplement à le nommer par le nom de votre commande et à changer le "name" et la "description" en fonction.
 Ensuite ajoutez un case dans le switch du main avec pour case la commande utilisé sur discord pour faire appel à votre fonction, et dans le get() mettre le "name" défini précedemment.
 
+Pour créer une base de données il faut exécuter le fichier create\_db.js avec la commande "node create\_db.js" ce fichier contient les reqûetes de création des tables de la base de données en sqlite.
+
+Pour que le bot utilise la base de données il faut que le fichier de la base de données se situe dans le même dossier que le fichier main.js. 
+
 Enfin, la commande de lancement du bot dans le terminal est "node ." dans le dossier repertoire.
